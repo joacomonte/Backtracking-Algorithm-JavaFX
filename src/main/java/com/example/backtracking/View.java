@@ -16,8 +16,8 @@ public class View {
         Button resetButton = createResetButton();
 
         root = new VBox(counterLabel, incrementButton, resetButton);
+        controller.setCounterLabel(counterLabel); // Set the counterLabel in the controller
     }
-
     public VBox getViewRoot() {
         return root;
     }
