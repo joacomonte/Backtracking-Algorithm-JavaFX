@@ -82,7 +82,7 @@ public class Model {
 
     public void addPerson(Person person) {
         people.add(person);
-        System.out.println(people.get(0).getName());
+        System.out.println("Se agregó con éxito "+person);
     }
 
     // is a javaFX method

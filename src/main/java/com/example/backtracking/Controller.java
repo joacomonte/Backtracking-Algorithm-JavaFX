@@ -9,8 +9,8 @@ public class Controller {
         this.model = model;
     }
 
-    public void addPerson(String name, Integer number, String role) {
-        Person person = new Person(name, number, role);
+    public void addPerson(String name, Integer qualy, String role) {
+        Person person = new Person(name, qualy, role);
         model.addPerson(person);
     }
 
