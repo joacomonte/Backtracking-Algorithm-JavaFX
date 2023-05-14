@@ -1,5 +1,8 @@
 package com.example.backtracking;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +11,9 @@ public class Model {
 
     private static int highestQualification;
     private static List<Person> bestGroup;
-    private final List<Person> people = new ArrayList<>();
+//    private final List<Person> people = new ArrayList<>();
+    private final ObservableList<Person> people = FXCollections.observableArrayList();
+
 
     public Model() {
 
@@ -78,5 +83,10 @@ public class Model {
     public void addPerson(Person person) {
         people.add(person);
         System.out.println(people.get(0).getName());
+    }
+
+    // is a javaFX method
+    public ObservableList<Person> getPeopleList() {
+        return people;
     }
 }

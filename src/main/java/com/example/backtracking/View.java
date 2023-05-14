@@ -2,10 +2,7 @@ package com.example.backtracking;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 public class View {
@@ -15,17 +12,16 @@ public class View {
     private final ChoiceBox<Integer> numberChoiceBox;
     private final ChoiceBox<String> roleChoiceBox;
     private final Button addButton;
+    private final ListView<Person> peopleListView;
 
     public View(Controller controller) {
         this.controller = controller;
 
         nameField = createNameField();
-
         numberChoiceBox = createNumberChoiceBox();
-
         roleChoiceBox = createRoleChoiceBox();
-
         addButton = createAddButton();
+        peopleListView = createPeopleListView();
 
         root = createRoot();
     }
@@ -64,12 +60,18 @@ public class View {
         return addButton;
     }
 
+    private ListView<Person> createPeopleListView() {
+        ListView<Person> listView = new ListView<>();
+        listView.setItems(controller.getPeopleList());
+        return listView;
+    }
+
     private VBox createRoot() {
         Label nameLabel = new Label("Name:");
         Label numberLabel = new Label("Calificación:");
         Label roleLabel = new Label("Role:");
 
-        return new VBox(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton);
+        return new VBox(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListView);
     }
 
     public VBox getViewRoot() {
