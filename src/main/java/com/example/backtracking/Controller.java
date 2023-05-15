@@ -27,4 +27,11 @@ public class Controller {
     public ObservableList<Person> getNotFriendsList() {
         return model.getNotFriendsList();
     }
+
+    public ObservableList<Person> getNotFriendsListFiltered() {
+        ObservableList<Person> peopleList = model.getPeopleList();
+        ObservableList<Person> notFriendsList = model.getNotFriendsList();
+
+        return peopleList.filtered(person -> !notFriendsList.contains(person));
+    }
 }

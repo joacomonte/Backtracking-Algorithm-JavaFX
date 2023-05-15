@@ -102,7 +102,7 @@ public class View {
 
     private ChoiceBox<String> createNotFriendsChoiceBox() {
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        ObservableList<Person> peopleList = controller.getPeopleList();
+        ObservableList<Person> peopleList = controller.getNotFriendsListFiltered();
         for (int i = 0; i < peopleList.size(); i++) {
             Person person = peopleList.get(i);
             choiceBox.getItems().add(person.getName());
