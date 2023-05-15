@@ -14,7 +14,17 @@ public class Controller {
         model.addPerson(person);
     }
 
+    public void addNotFriendlyPerson(int index) {
+        ObservableList<Person> currentPeopleList = model.getPeopleList();
+        System.out.println(currentPeopleList.get(index));
+
+    }
+
     public ObservableList<Person> getPeopleList() {
         return model.getPeopleList();
+    }
+
+    public ObservableList<Person> getNotFriendsList() {
+        return model.getNotFriendsList();
     }
 }

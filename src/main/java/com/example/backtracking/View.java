@@ -17,6 +17,7 @@ public class View {
     private final ChoiceBox<String> roleChoiceBox;
     private final Button addButton;
     private final ListView<Person> peopleListView;
+    private final ListView<Person> notFriendsListView;
     private Label successLabel;
 
     public View(Controller controller) {
@@ -27,6 +28,7 @@ public class View {
         roleChoiceBox = createRoleChoiceBox();
         addButton = createAddButton();
         peopleListView = createPeopleListView();
+        notFriendsListView = createNotFriendsListView();
         successLabel = createSuccessLabel();
 
         root = createRoot();
@@ -89,6 +91,13 @@ public class View {
         return listView;
     }
 
+    private ListView<Person> createNotFriendsListView() {
+        ListView<Person> listView = new ListView<>();
+        listView.setItems(controller.getNotFriendsList());
+        listView.setPrefHeight(200);
+        return listView;
+    }
+
     private void showSuccessMessage() {
         successLabel.setVisible(true);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> successLabel.setVisible(false)));
@@ -96,17 +105,21 @@ public class View {
     }
 
     private VBox createRoot() {
-        Label nameLabel = new Label("Name:");
-        Label numberLabel = new Label("Calificación:");
-        Label roleLabel = new Label("Role:");
+        Label nameLabel = new Label("Nombre de la persona:");
+        Label numberLabel = new Label("Elige un puntaje:");
+        Label roleLabel = new Label("Elige qué rol tendrá:");
+        Label peopleListLabel = new Label("Lista de personas:");
+        Label notFriendsListLabel = new Label("Lista de personas no compatibles:");
 
         VBox.setMargin(nameLabel, new Insets(5, 0, 0, 0));
         VBox.setMargin(numberLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(roleLabel, new Insets(10, 0, 0, 0));
+        VBox.setMargin(peopleListLabel, new Insets(10, 0, 0, 0));
+        VBox.setMargin(notFriendsListLabel, new Insets(10, 0, 0, 0));
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
-        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListView, successLabel);
+        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView, notFriendsListLabel, notFriendsListView, successLabel);
         return root;
     }
 

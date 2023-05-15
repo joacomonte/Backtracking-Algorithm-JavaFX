@@ -13,6 +13,7 @@ public class Model {
     private static List<Person> bestGroup;
 //    private final List<Person> people = new ArrayList<>();
     private final ObservableList<Person> people = FXCollections.observableArrayList();
+    private final ObservableList<Person> notFriends = FXCollections.observableArrayList();
 
 
     public Model() {
@@ -23,7 +24,6 @@ public class Model {
         people.add(new Person("grunge", 1, "programmer"));
         people.add(new Person("teti", 2, "programmer"));
 
-        List<Person> notFriends = new ArrayList<>();
         notFriends.add(people.get(0));
         notFriends.add(people.get(1));
 
@@ -88,5 +88,8 @@ public class Model {
     // is a javaFX method
     public ObservableList<Person> getPeopleList() {
         return people;
+    }
+    public ObservableList<Person> getNotFriendsList() {
+        return notFriends;
     }
 }
