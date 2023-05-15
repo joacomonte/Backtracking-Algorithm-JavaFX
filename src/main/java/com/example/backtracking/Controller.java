@@ -15,8 +15,8 @@ public class Controller {
     }
 
     public void addNotFriendlyPerson(int index) {
-        ObservableList<Person> currentPeopleList = model.getPeopleList();
-        System.out.println(currentPeopleList.get(index));
+        model.addNotFriendlyPerson(index);
+        System.out.println(getPeopleList().get(index));
 
     }
 

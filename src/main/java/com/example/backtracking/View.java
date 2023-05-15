@@ -19,6 +19,7 @@ public class View {
     private final ListView<Person> peopleListView;
     private final ListView<Person> notFriendsListView;
     private Label successLabel;
+    private final ChoiceBox<String> notFriendlyChoiceBox;
 
     public View(Controller controller) {
         this.controller = controller;
@@ -29,6 +30,7 @@ public class View {
         addButton = createAddButton();
         peopleListView = createPeopleListView();
         notFriendsListView = createNotFriendsListView();
+        notFriendlyChoiceBox = createNotFriendsChoiceBox();
         successLabel = createSuccessLabel();
 
         root = createRoot();
@@ -98,6 +100,25 @@ public class View {
         return listView;
     }
 
+    private ChoiceBox<String> createNotFriendsChoiceBox() {
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        ObservableList<Person> peopleList = controller.getPeopleList();
+        for (int i = 0; i < peopleList.size(); i++) {
+            Person person = peopleList.get(i);
+            choiceBox.getItems().add(person.getName());
+        }
+
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            int selectedIndex = newValue.intValue();
+            if (selectedIndex >= 0) {
+                controller.addNotFriendlyPerson(selectedIndex);
+                showSuccessMessage();
+            }
+        });
+
+        return choiceBox;
+    }
+
     private void showSuccessMessage() {
         successLabel.setVisible(true);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> successLabel.setVisible(false)));
@@ -119,7 +140,7 @@ public class View {
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
-        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView, notFriendsListLabel, notFriendsListView, successLabel);
+        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView, notFriendsListLabel, notFriendsListView, notFriendlyChoiceBox, successLabel);
         return root;
     }
 
