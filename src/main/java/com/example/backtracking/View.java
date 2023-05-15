@@ -19,7 +19,7 @@ public class View {
     private final ListView<Person> peopleListView;
     private final ListView<Person> notFriendsListView;
     private Label successLabel;
-    private final ChoiceBox<String> notFriendlyChoiceBox;
+    private final ChoiceBox<Person> notFriendlyChoiceBox;
 
     public View(Controller controller) {
         this.controller = controller;
@@ -100,18 +100,14 @@ public class View {
         return listView;
     }
 
-    private ChoiceBox<String> createNotFriendsChoiceBox() {
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+    private ChoiceBox<Person> createNotFriendsChoiceBox() {
+        ChoiceBox<Person> choiceBox = new ChoiceBox<>();
         ObservableList<Person> peopleList = controller.getNotFriendsListFiltered();
-        for (int i = 0; i < peopleList.size(); i++) {
-            Person person = peopleList.get(i);
-            choiceBox.getItems().add(person.getName());
-        }
+        choiceBox.setItems(peopleList);
 
-        choiceBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            int selectedIndex = newValue.intValue();
-            if (selectedIndex >= 0) {
-                controller.addNotFriendlyPerson(selectedIndex);
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                controller.addNotFriendlyPerson(newValue);
                 showSuccessMessage();
             }
         });

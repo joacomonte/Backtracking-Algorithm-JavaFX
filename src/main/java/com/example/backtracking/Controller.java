@@ -14,9 +14,9 @@ public class Controller {
         model.addPerson(person);
     }
 
-    public void addNotFriendlyPerson(int index) {
-        model.addNotFriendlyPerson(index);
-        System.out.println(getPeopleList().get(index));
+    public void addNotFriendlyPerson(Person personSelected) {
+        model.addNotFriendlyPerson(personSelected);
+        System.out.println(personSelected);
 
     }
 
@@ -29,9 +29,6 @@ public class Controller {
     }
 
     public ObservableList<Person> getNotFriendsListFiltered() {
-        ObservableList<Person> peopleList = model.getPeopleList();
-        ObservableList<Person> notFriendsList = model.getNotFriendsList();
-
-        return peopleList.filtered(person -> !notFriendsList.contains(person));
+        return model.getPeopleList().filtered(person -> !model.getNotFriendsList().contains(person));
     }
 }

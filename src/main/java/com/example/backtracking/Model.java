@@ -85,9 +85,9 @@ public class Model {
         System.out.println("Se agregó con éxito "+person);
     }
 
-    public void addNotFriendlyPerson(int index) {
-        notFriends.add(people.get(index));
-        System.out.println("Se agregó con éxito "+people.get(index));
+    public void addNotFriendlyPerson(Person personSelected) {
+        notFriends.add(personSelected);
+        System.out.println("Se agregó con éxito "+personSelected);
     }
 
     // is a javaFX method
@@ -97,4 +97,5 @@ public class Model {
     public ObservableList<Person> getNotFriendsList() {
         return notFriends;
     }
+
 }
