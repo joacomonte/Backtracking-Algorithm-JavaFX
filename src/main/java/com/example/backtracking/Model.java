@@ -27,22 +27,23 @@ public class Model {
         notFriends.add(people.get(0));
         notFriends.add(people.get(1));
 
-        backtrack(people.toArray(new Person[0]), new ArrayList<>(), notFriends, 0);
+        backtrack(people, new ArrayList<>(), notFriends, 0);
 
         System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
     }
 
-    private void backtrack(Person[] people, List<Person> tempList, List<Person> notFriends, int index) {
+    private void backtrack(List<Person> people, List<Person> tempList, List<Person> notFriends, int index) {
+
         if (tempList.size() == 4) {
             if (isCompatibleGroup(tempList, notFriends)) {
                 setHighestQualification(tempList);
             }
         } else {
-            for (int i = index; i < people.length; i++) {
-                if (tempList.contains(people[i]))
+            for (int i = index; i < people.size(); i++) {
+                if (tempList.contains(people.get(i)))
                     continue;
 
-                tempList.add(people[i]);
+                tempList.add(people.get(i));
 
                 backtrack(people, tempList, notFriends, i + 1);
 
@@ -67,6 +68,7 @@ public class Model {
         }
     }
 
+    //TODO fix this motherfucker
     private boolean isCompatibleGroup(List<Person> tempList, List<Person> notFriends) {
         int count = 0;
         for (Person notFriend : notFriends) {
