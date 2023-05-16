@@ -14,17 +14,11 @@ public class Controller {
         model.addPerson(person);
     }
 
-    public void addNotFriendlyPerson(Person personSelected) {
-        model.addNotFriendlyPerson(personSelected);
-        System.out.println(personSelected);
-
-    }
-
     public ObservableList<Person> getPeopleList() {
         return model.getPeopleList();
     }
 
-    public ObservableList<Person> getNotFriendsList() {
+    public ObservableList<Pairs> getIncompatiblePairs() {
         return model.getNotFriendsList();
     }
 

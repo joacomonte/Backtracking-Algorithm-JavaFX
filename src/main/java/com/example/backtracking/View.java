@@ -95,7 +95,8 @@ public class View {
 
     private ListView<Person> createNotFriendsListView() {
         ListView<Person> listView = new ListView<>();
-        listView.setItems(controller.getNotFriendsList());
+//        TODO fix
+//        listView.setItems(controller.getNotFriendsList());
         listView.setPrefHeight(200);
         return listView;
     }
@@ -107,7 +108,8 @@ public class View {
 
         choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                controller.addNotFriendlyPerson(newValue);
+//                TODO fix
+//                controller.addNotFriendlyPerson(newValue);
                 showSuccessMessage();
             }
         });

@@ -3,17 +3,15 @@ package com.example.backtracking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Model {
 
     private static int highestQualification;
     private static List<Person> bestGroup;
 //    private final List<Person> people = new ArrayList<>();
-    private final ObservableList<Person> people = FXCollections.observableArrayList();
-    private final ObservableList<Person> notFriends = FXCollections.observableArrayList();
+    private ObservableList<Person> people = FXCollections.observableArrayList();
+    private ObservableList<Pairs> incompatiblePairs = FXCollections.observableArrayList();
 
 
     public Model() {
@@ -24,18 +22,17 @@ public class Model {
         people.add(new Person("grunge", 1, "programmer"));
         people.add(new Person("teti", 2, "programmer"));
 
-        notFriends.add(people.get(0));
-        notFriends.add(people.get(1));
+        addPairSet(0, 1); // Add pair set for Jack and Joaco
 
-        backtrack(people, new ArrayList<>(), notFriends, 0);
+        backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
 
         System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
     }
 
-    private void backtrack(List<Person> people, List<Person> tempList, List<Person> notFriends, int index) {
+    private void backtrack(List<Person> people, List<Person> tempList, ObservableList<Pairs> incompatiblePairs, int index) {
 
         if (tempList.size() == 4) {
-            if (isCompatibleGroup(tempList, notFriends)) {
+            if (isCompatibleGroup(tempList, incompatiblePairs)) {
                 setHighestQualification(tempList);
             }
         } else {
@@ -45,7 +42,7 @@ public class Model {
 
                 tempList.add(people.get(i));
 
-                backtrack(people, tempList, notFriends, i + 1);
+                backtrack(people, tempList, incompatiblePairs, i + 1);
 
                 tempList.remove(tempList.size() - 1);
             }
@@ -69,14 +66,10 @@ public class Model {
     }
 
     //TODO fix this motherfucker
-    private boolean isCompatibleGroup(List<Person> tempList, List<Person> notFriends) {
-        int count = 0;
-        for (Person notFriend : notFriends) {
-            if (tempList.contains(notFriend)) {
-                count++;
-                if (count >= 2) {
-                    return false;
-                }
+    private boolean isCompatibleGroup(List<Person> tempList, List<Pairs> incompatiblePairs) {
+        for (Pairs pairs : incompatiblePairs) {
+            if (tempList.containsAll(pairs.getPairSet())) {
+                return false;
             }
         }
         return true;
@@ -87,17 +80,21 @@ public class Model {
         System.out.println("Se agregó con éxito "+person);
     }
 
-    public void addNotFriendlyPerson(Person personSelected) {
-        notFriends.add(personSelected);
-        System.out.println("Se agregó con éxito "+personSelected);
+    private void addPairSet(int index1, int index2) {
+        Person person1 = people.get(index1);
+        Person person2 = people.get(index2);
+        Set<Person> pairSet = new HashSet<>();
+        pairSet.add(person1);
+        pairSet.add(person2);
+        incompatiblePairs.add(new Pairs(pairSet));
     }
 
     // is a javaFX method
     public ObservableList<Person> getPeopleList() {
         return people;
     }
-    public ObservableList<Person> getNotFriendsList() {
-        return notFriends;
+    public ObservableList<Pairs> getNotFriendsList() {
+        return incompatiblePairs;
     }
 
 }
