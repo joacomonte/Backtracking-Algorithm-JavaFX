@@ -11,7 +11,7 @@ public class Main extends Application {
         Controller controller = new Controller(model);
         View view = new View(controller);
 
-        Scene scene = new Scene(view.getViewRoot(), 400, 600);
+        Scene scene = new Scene(view.getViewRoot(), 400, 800);
 
         stage.setTitle("Counter App");
         stage.setScene(scene);

@@ -52,7 +52,7 @@ public class View {
     }
 
     private ChoiceBox<Integer> createNumberChoiceBox() {
-        ObservableList<Integer> numberOptions = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        ObservableList<Integer> numberOptions = FXCollections.observableArrayList(1, 2, 3, 4, 5);
         ChoiceBox<Integer> numberChoiceBox = new ChoiceBox<>(numberOptions);
         numberChoiceBox.setPrefWidth(150);
         numberChoiceBox.getSelectionModel().selectFirst(); // Select the first option by default
@@ -101,7 +101,7 @@ public class View {
         ListView<Pairs> listView = new ListView<>();
 
         listView.setItems(controller.getIncompatiblePairs());
-        listView.setPrefHeight(200);
+        listView.setPrefHeight(400);
         return listView;
     }
 

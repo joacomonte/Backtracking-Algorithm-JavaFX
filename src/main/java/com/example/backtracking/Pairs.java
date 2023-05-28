@@ -16,7 +16,7 @@ public class Pairs {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Incompatibles: [");
+        sb.append("[");
         for (Person person : pairSet) {
             sb.append(person.getName()).append(", ");
         }

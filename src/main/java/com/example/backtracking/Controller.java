@@ -30,11 +30,13 @@ public class Controller {
         int indexPerson1 = getIndexOfPerson(selectedPerson1);
         int indexPerson2 = getIndexOfPerson(selectedPerson2);
 
-        //TODO Delete before deliver GOKU TROLO
-        System.out.println("Index of " + selectedPerson1.getName() + ": " + indexPerson1);
-        System.out.println("Index of " + selectedPerson2.getName() + ": " + indexPerson2);
-
-        model.addPairSet(indexPerson1, indexPerson2);
+        if (indexPerson1==indexPerson2){
+            //view.errorForSamePerson();
+            throw new RuntimeException("Debe elegir distintas personas");
+        }
+        else{
+            model.addPairSet(indexPerson1, indexPerson2);
+        }
     }
 
     private int getIndexOfPerson(Person person) {

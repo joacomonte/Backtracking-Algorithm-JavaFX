@@ -9,22 +9,34 @@ public class Model {
 
     private static int highestQualification;
     private static List<Person> bestGroup;
-//    private final List<Person> people = new ArrayList<>();
     private ObservableList<Person> people = FXCollections.observableArrayList();
     private ObservableList<Pairs> incompatiblePairs = FXCollections.observableArrayList();
+
+    private int requiredProgrammers;
+    private int requiredArchitects;
+    private int requiredProjectLeaders;
+    private int requiredTesters;
+
+    private int totalTeamSize = requiredProgrammers + requiredArchitects + requiredProjectLeaders + requiredTesters;
+
+
 
 
     public Model() {
 
-        people.add(new Person("jack", 3, "programmer"));
-        people.add(new Person("joaco", 4, "programmer"));
-        people.add(new Person("ferchu", 5, "programmer"));
-        people.add(new Person("grunge", 1, "programmer"));
-        people.add(new Person("teti", 2, "programmer"));
+        people.add(new Person("jack", 3, "Programmer"));
+        people.add(new Person("joaco", 4, "Architect"));
+        people.add(new Person("ferchu", 5, "Tester"));
+        people.add(new Person("grunge", 1, "Project Leader"));
+        people.add(new Person("teti", 2, "Programmer"));
+        requiredProgrammers = 1;
+        requiredArchitects = 1;
+        requiredProjectLeaders = 1;
+        requiredTesters = 1;
 
+        //TODO Fix point ranks, to 1-5. una gilada
         //TODO visualize final team
-        //TODO Fix requirements for the team
-        //TODO cant visualize incompatibilities
+        //TODO add the view for it
         addPairSet(0, 1); // Add pair set for Jack and Joaco
 
         backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
@@ -75,6 +87,39 @@ public class Model {
                 return false;
             }
         }
+        if(!everyRolCover(tempList)){
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean everyRolCover(List<Person> tempList) {
+        int projectLeaders = 0;
+        int architects = 0;
+        int programmers = 0;
+        int testers = 0;
+
+        for (Person person : tempList){
+            if (person.getRole().equals("Project Leader")){
+                projectLeaders ++;
+            }
+            if (person.getRole().equals("Architect")){
+                architects ++;
+            }
+            if (person.getRole().equals("Programmer")){
+                programmers ++;
+            }
+            if (person.getRole().equals("Tester")){
+                testers ++;
+            }
+        }
+
+        if (projectLeaders!=requiredProjectLeaders || architects!=requiredArchitects || programmers!=requiredProgrammers || testers!=requiredTesters){
+            System.out.println("No es compatible gato");
+            return false;
+        }
+
         return true;
     }
 
