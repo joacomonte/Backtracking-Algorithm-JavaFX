@@ -17,9 +17,11 @@ public class View {
     private final ChoiceBox<String> roleChoiceBox;
     private final Button addButton;
     private final ListView<Person> peopleListView;
-    private final ListView<Person> notFriendsListView;
+    private final ListView<Pairs> notFriendsListView;
     private Label successLabel;
-    private final ChoiceBox<Person> notFriendlyChoiceBox;
+    private final ChoiceBox<Person> person1NotCompatibleChoiceBox;
+    private final ChoiceBox<Person> person2NotCompatibleChoiceBox;
+    private final Button addIncompatiblePairButton;
 
     public View(Controller controller) {
         this.controller = controller;
@@ -30,8 +32,10 @@ public class View {
         addButton = createAddButton();
         peopleListView = createPeopleListView();
         notFriendsListView = createNotFriendsListView();
-        notFriendlyChoiceBox = createNotFriendsChoiceBox();
+        person1NotCompatibleChoiceBox = createNotFriendsChoiceBox1();
+        person2NotCompatibleChoiceBox = createNotFriendsChoiceBox2();
         successLabel = createSuccessLabel();
+        addIncompatiblePairButton = addIncompatiblePairButton(person1NotCompatibleChoiceBox, person2NotCompatibleChoiceBox);
 
         root = createRoot();
     }
@@ -70,7 +74,7 @@ public class View {
     }
 
     private Button createAddButton() {
-        Button addButton = new Button("Add");
+        Button addButton = new Button("Agregar");
         addButton.setOnAction(e -> {
             String name = nameField.getText();
             Integer number = numberChoiceBox.getValue();
@@ -89,32 +93,46 @@ public class View {
     private ListView<Person> createPeopleListView() {
         ListView<Person> listView = new ListView<>();
         listView.setItems(controller.getPeopleList());
+        listView.setPrefHeight(400);
+        return listView;
+    }
+
+    private ListView<Pairs> createNotFriendsListView() {
+        ListView<Pairs> listView = new ListView<>();
+
+        listView.setItems(controller.getIncompatiblePairs());
         listView.setPrefHeight(200);
         return listView;
     }
 
-    private ListView<Person> createNotFriendsListView() {
-        ListView<Person> listView = new ListView<>();
-//        TODO fix
-//        listView.setItems(controller.getNotFriendsList());
-        listView.setPrefHeight(200);
-        return listView;
-    }
-
-    private ChoiceBox<Person> createNotFriendsChoiceBox() {
+    private ChoiceBox<Person> createNotFriendsChoiceBox1() {
         ChoiceBox<Person> choiceBox = new ChoiceBox<>();
-        ObservableList<Person> peopleList = controller.getNotFriendsListFiltered();
+        ObservableList<Person> peopleList = controller.getPeopleList();
         choiceBox.setItems(peopleList);
+        return choiceBox;
+    }
 
-        choiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-//                TODO fix
-//                controller.addNotFriendlyPerson(newValue);
+    private ChoiceBox<Person> createNotFriendsChoiceBox2() {
+        ChoiceBox<Person> choiceBox = new ChoiceBox<>();
+        ObservableList<Person> peopleList = controller.getPeopleList();
+        choiceBox.setItems(peopleList);
+        return choiceBox;
+    }
+
+    private Button addIncompatiblePairButton(ChoiceBox<Person> choiceBox1, ChoiceBox<Person> choiceBox2) {
+        Button button = new Button("Agregar");
+
+        button.setOnAction(e -> {
+            Person selectedPerson1 = choiceBox1.getSelectionModel().getSelectedItem();
+            Person selectedPerson2 = choiceBox2.getSelectionModel().getSelectedItem();
+
+            if (selectedPerson1 != null && selectedPerson2 != null) {
+                controller.addIncompatiblePair(selectedPerson1, selectedPerson2);
                 showSuccessMessage();
             }
         });
 
-        return choiceBox;
+        return button;
     }
 
     private void showSuccessMessage() {
@@ -129,16 +147,20 @@ public class View {
         Label roleLabel = new Label("Elige qué rol tendrá:");
         Label peopleListLabel = new Label("Lista de personas:");
         Label notFriendsListLabel = new Label("Lista de personas no compatibles:");
+        Label incompatiblePerson1 = new Label("Persona incompatible 1");
+        Label incompatiblePerson2 = new Label("Persona incompatible 2");
 
         VBox.setMargin(nameLabel, new Insets(5, 0, 0, 0));
         VBox.setMargin(numberLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(roleLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(peopleListLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(notFriendsListLabel, new Insets(10, 0, 0, 0));
+        VBox.setMargin(incompatiblePerson1, new Insets(10, 0, 0, 0));
+        VBox.setMargin(incompatiblePerson2, new Insets(10, 0, 0, 0));
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
-        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView, notFriendsListLabel, notFriendsListView, notFriendlyChoiceBox, successLabel);
+        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView, notFriendsListLabel, notFriendsListView, incompatiblePerson1, person1NotCompatibleChoiceBox, incompatiblePerson2, person2NotCompatibleChoiceBox, successLabel, addIncompatiblePairButton);
         return root;
     }
 

@@ -22,6 +22,9 @@ public class Model {
         people.add(new Person("grunge", 1, "programmer"));
         people.add(new Person("teti", 2, "programmer"));
 
+        //TODO visualize final team
+        //TODO Fix requirements for the team
+        //TODO cant visualize incompatibilities
         addPairSet(0, 1); // Add pair set for Jack and Joaco
 
         backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
@@ -80,7 +83,7 @@ public class Model {
         System.out.println("Se agregó con éxito "+person);
     }
 
-    private void addPairSet(int index1, int index2) {
+    void addPairSet(int index1, int index2) {
         Person person1 = people.get(index1);
         Person person2 = people.get(index2);
         Set<Person> pairSet = new HashSet<>();
@@ -93,8 +96,10 @@ public class Model {
     public ObservableList<Person> getPeopleList() {
         return people;
     }
-    public ObservableList<Pairs> getNotFriendsList() {
+
+    public ObservableList<Pairs> getIncompatiblePairs() {
         return incompatiblePairs;
     }
+
 
 }

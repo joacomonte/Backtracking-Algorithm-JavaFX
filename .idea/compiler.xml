@@ -9,8 +9,5 @@
         <module name="backtracking" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="backtracking" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
