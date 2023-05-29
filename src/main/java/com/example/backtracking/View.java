@@ -80,7 +80,7 @@ public class View {
             Integer number = numberChoiceBox.getValue();
             String role = roleChoiceBox.getValue();
             if (name.isEmpty() || number == null || role == null || role.equals("Select role")) {
-                showAlert();
+                fieldsAlert();
                 return;
             }
             controller.addPerson(name, number, role);
@@ -129,8 +129,7 @@ public class View {
             if (controller.addIncompatiblePair(selectedPerson1, selectedPerson2)) {
                 showSuccessMessage();
             } else{
-                System.out.println("no funciono");
-                //TODO show msj con error
+                duplicatePairAlert();
             }
         });
 
@@ -176,11 +175,19 @@ public class View {
         roleChoiceBox.getSelectionModel().clearSelection();
     }
 
-    private void showAlert() {
+    private void fieldsAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Error");
         alert.setHeaderText("Llene todo los campos");
         alert.setContentText("La persona debe tener nombre, clasificación y rol obligatoriamente");
+        alert.showAndWait();
+    }
+
+    private void duplicatePairAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error");
+        alert.setHeaderText("Esa pareja ya existe");
+        alert.setContentText("Las personas que estas queriendo ingresar ya corresponden a la lista de incompatibles");
         alert.showAndWait();
     }
 }
