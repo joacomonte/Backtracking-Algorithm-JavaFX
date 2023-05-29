@@ -126,9 +126,11 @@ public class View {
             Person selectedPerson1 = choiceBox1.getSelectionModel().getSelectedItem();
             Person selectedPerson2 = choiceBox2.getSelectionModel().getSelectedItem();
 
-            if (selectedPerson1 != null && selectedPerson2 != null) {
-                controller.addIncompatiblePair(selectedPerson1, selectedPerson2);
+            if (controller.addIncompatiblePair(selectedPerson1, selectedPerson2)) {
                 showSuccessMessage();
+            } else{
+                System.out.println("no funciono");
+                //TODO show msj con error
             }
         });
 

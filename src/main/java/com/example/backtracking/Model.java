@@ -37,7 +37,8 @@ public class Model {
         //TODO Fix point ranks, to 1-5. una gilada
         //TODO visualize final team
         //TODO add the view for it
-        addPairSet(0, 1); // Add pair set for Jack and Joaco
+
+//        addPairSet(people.get(0), people.get(1)); // Add pair set for Jack and Joaco
 
         backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
 
@@ -87,7 +88,7 @@ public class Model {
                 return false;
             }
         }
-        if(!everyRolCover(tempList)){
+        if (!everyRolCover(tempList)){
             return false;
         }
 
@@ -128,14 +129,10 @@ public class Model {
         System.out.println("Se agregó con éxito "+person);
     }
 
-    void addPairSet(int index1, int index2) {
-        Person person1 = people.get(index1);
-        Person person2 = people.get(index2);
-        Set<Person> pairSet = new HashSet<>();
-        pairSet.add(person1);
-        pairSet.add(person2);
-        incompatiblePairs.add(new Pairs(pairSet));
+    void addPairSet(Pairs pairSelected) {
+        incompatiblePairs.add(pairSelected);
     }
+
 
     // is a javaFX method
     public ObservableList<Person> getPeopleList() {
