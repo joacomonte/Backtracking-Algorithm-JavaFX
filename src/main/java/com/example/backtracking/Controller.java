@@ -53,4 +53,11 @@ public class Controller {
         return peopleList.indexOf(person);
     }
 
+    public void runAlgorithm() {
+        model.runAlgorithm();
+    }
+
+    public void updateTeamRequirements(int requiredProgrammersValue, int requiredArchitectsValue, int requiredProjectLeadersValue, int requiredTestersValue) {
+        model.updateTeamRequirements(requiredProgrammersValue, requiredArchitectsValue, requiredProjectLeadersValue, requiredTestersValue);
+    }
 }

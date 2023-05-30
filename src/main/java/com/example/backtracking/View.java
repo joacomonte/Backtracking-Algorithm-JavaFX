@@ -2,12 +2,15 @@ package com.example.backtracking;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javafx.scene.layout.HBox;
 
 public class View {
     private final Controller controller;
@@ -22,6 +25,12 @@ public class View {
     private final ChoiceBox<Person> person1NotCompatibleChoiceBox;
     private final ChoiceBox<Person> person2NotCompatibleChoiceBox;
     private final Button addIncompatiblePairButton;
+    private final Button runAlgorithm;
+
+    private Spinner<Integer> requiredProgrammers;
+    private Spinner<Integer> requiredArchitects;
+    private Spinner<Integer> requiredProjectLeaders;
+    private Spinner<Integer> requiredTesters;
 
     public View(Controller controller) {
         this.controller = controller;
@@ -36,6 +45,7 @@ public class View {
         person2NotCompatibleChoiceBox = createNotFriendsChoiceBox2();
         successLabel = createSuccessLabel();
         addIncompatiblePairButton = addIncompatiblePairButton(person1NotCompatibleChoiceBox, person2NotCompatibleChoiceBox);
+        runAlgorithm = runAlgorithmButton();
 
         root = createRoot();
     }
@@ -132,6 +142,8 @@ public class View {
         return button;
     }
 
+
+
     private Label createSuccessLabel() {
         Label label = new Label("FELICITACIONES!! Se agregó con éxito!");
         label.setVisible(false);
@@ -144,6 +156,17 @@ public class View {
         timeline.play();
     }
 
+
+    private Button  runAlgorithmButton() {
+        Button button = new Button("Buscar mejor equipo");
+
+        button.setOnAction(e -> {
+            controller.runAlgorithm();
+        });
+
+        return button;
+    }
+
     //create the select boxes, labels and text areas. sets margins
     private VBox createRoot() {
         Label nameLabel = new Label("Nombre de la persona:");
@@ -153,6 +176,15 @@ public class View {
         Label notFriendsListLabel = new Label("Lista de personas no compatibles:");
         Label incompatiblePerson1 = new Label("Persona incompatible 1");
         Label incompatiblePerson2 = new Label("Persona incompatible 2");
+
+        Label requiredProgrammersLabel = new Label("Seleccione la cantidad de Pogramadores deseados:");
+        requiredProgrammers = createNumberSpinner();
+        Label requiredArchitectsLabel = new Label("Seleccione la cantidad de Arquitectos deseados:");
+        requiredArchitects = createNumberSpinner();
+        Label requiredProjectLeadersLabel = new Label("Seleccione la cantidad de Project Leaders deseados:");
+        requiredProjectLeaders = createNumberSpinner();
+        Label requiredTestersLabel = new Label("Seleccione la cantidad de Testers deseados:");
+        requiredTesters = createNumberSpinner();
 
         //set margins
         VBox.setMargin(nameLabel, new Insets(5, 0, 0, 0));
@@ -165,8 +197,49 @@ public class View {
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
-        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox, roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView, notFriendsListLabel, notFriendsListView, incompatiblePerson1, person1NotCompatibleChoiceBox, incompatiblePerson2, person2NotCompatibleChoiceBox, successLabel, addIncompatiblePairButton);
+        root.getChildren().addAll(nameLabel, nameField, numberLabel, numberChoiceBox,
+                roleLabel, roleChoiceBox, addButton, peopleListLabel, peopleListView,
+                notFriendsListLabel, notFriendsListView, incompatiblePerson1,
+                person1NotCompatibleChoiceBox, incompatiblePerson2, person2NotCompatibleChoiceBox,
+                successLabel, addIncompatiblePairButton, requiredProgrammersLabel, requiredProgrammers,
+                requiredArchitectsLabel, requiredArchitects, requiredProjectLeadersLabel, requiredProjectLeaders,
+                requiredTestersLabel, requiredTesters, runAlgorithm);
         return root;
+    }
+
+    private Spinner<Integer> createNumberSpinner() {
+        int minValue = 0;
+        int maxValue = 100;
+        int initialValue = 0;
+
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue, initialValue);
+
+        Spinner<Integer> spinner = new Spinner<>();
+        spinner.setValueFactory(valueFactory);
+
+        TextField spinnerTextField = spinner.getEditor();
+
+        spinner.setPrefWidth(80);
+
+        // Add a value change listener to the spinner
+        spinner.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                // Update the view or perform any other action
+                updateSpinners();
+            }
+        });
+
+        return spinner;
+    }
+
+    private void updateSpinners() {
+        // Access the inputCountLabel and update its text
+        int requiredProgrammersValue = requiredProgrammers.getValue();
+        int requiredArchitectsValue = requiredArchitects.getValue();
+        int requiredProjectLeadersValue = requiredProjectLeaders.getValue();
+        int requiredTestersValue = requiredTesters.getValue();
+        controller.updateTeamRequirements(requiredProgrammersValue, requiredArchitectsValue, requiredProjectLeadersValue, requiredTestersValue);
     }
 
     public VBox getViewRoot() {

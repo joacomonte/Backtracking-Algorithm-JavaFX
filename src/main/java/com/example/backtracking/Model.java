@@ -29,21 +29,14 @@ public class Model {
         people.add(new Person("ferchu", 5, "Tester"));
         people.add(new Person("grunge", 1, "Project Leader"));
         people.add(new Person("teti", 2, "Programmer"));
-        requiredProgrammers = 1;
-        requiredArchitects = 1;
-        requiredProjectLeaders = 1;
-        requiredTesters = 1;
 
 
 
         //TODO add view for final team, and maybe add a counter of how many teams were formed
-        //TODO add interface and view for team requirements
 
-//        addPairSet(people.get(0), people.get(1)); // Add pair set for Jack and Joaco
 
-        backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
+        //backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
 
-        System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
     }
 
     private void backtrack(List<Person> people, List<Person> tempList, ObservableList<Pairs> incompatiblePairs, int index) {
@@ -145,4 +138,15 @@ public class Model {
     }
 
 
+    public void updateTeamRequirements(int requiredProgrammersValue, int requiredArchitectsValue, int requiredProjectLeadersValue, int requiredTestersValue) {
+        this.requiredProgrammers = requiredProgrammersValue;
+        this.requiredArchitects = requiredArchitectsValue;
+        this.requiredProjectLeaders = requiredProjectLeadersValue;
+        this.requiredTesters = requiredTestersValue;
+    }
+
+    public void runAlgorithm() {
+        backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
+        System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
+    }
 }
