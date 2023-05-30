@@ -5,8 +5,10 @@ import javafx.collections.ObservableList;
 public class Controller {
     private final Model model;
 
+
     public Controller(Model model) {
         this.model = model;
+
     }
 
     public void addPerson(String name, Integer qualy, String role) {
@@ -29,11 +31,16 @@ public class Controller {
     public boolean addIncompatiblePair(Person selectedPerson1, Person selectedPerson2) {
         Pairs newPair = Pairs.createPair(selectedPerson1, selectedPerson2);
 
+        if (selectedPerson1.equals(selectedPerson2)){
+            return false;
+        }
+
         for (Pairs existingPair : model.getIncompatiblePairs()) {
             if (existingPair.getPairSet().equals(newPair.getPairSet())) {
                 return false;
             }
         }
+
 
         model.addPairSet(newPair);
         return true;

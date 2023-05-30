@@ -39,11 +39,7 @@ public class View {
 
         root = createRoot();
     }
-    private Label createSuccessLabel() {
-        Label label = new Label("FELICITACIONES!! Se agregó con éxito!");
-        label.setVisible(false);
-        return label;
-    }
+
 
     private TextField createNameField() {
         TextField nameField = new TextField();
@@ -136,12 +132,19 @@ public class View {
         return button;
     }
 
+    private Label createSuccessLabel() {
+        Label label = new Label("FELICITACIONES!! Se agregó con éxito!");
+        label.setVisible(false);
+        return label;
+    }
+
     private void showSuccessMessage() {
         successLabel.setVisible(true);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> successLabel.setVisible(false)));
         timeline.play();
     }
 
+    //create the select boxes, labels and text areas. sets margins
     private VBox createRoot() {
         Label nameLabel = new Label("Nombre de la persona:");
         Label numberLabel = new Label("Elige un puntaje:");
@@ -151,6 +154,7 @@ public class View {
         Label incompatiblePerson1 = new Label("Persona incompatible 1");
         Label incompatiblePerson2 = new Label("Persona incompatible 2");
 
+        //set margins
         VBox.setMargin(nameLabel, new Insets(5, 0, 0, 0));
         VBox.setMargin(numberLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(roleLabel, new Insets(10, 0, 0, 0));

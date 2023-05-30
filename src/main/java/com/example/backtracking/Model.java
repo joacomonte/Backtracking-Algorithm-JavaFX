@@ -34,9 +34,10 @@ public class Model {
         requiredProjectLeaders = 1;
         requiredTesters = 1;
 
-        //TODO Fix point ranks, to 1-5. una gilada
-        //TODO visualize final team
-        //TODO add the view for it
+
+
+        //TODO add view for final team, and maybe add a counter of how many teams were formed
+        //TODO add interface and view for team requirements
 
 //        addPairSet(people.get(0), people.get(1)); // Add pair set for Jack and Joaco
 
