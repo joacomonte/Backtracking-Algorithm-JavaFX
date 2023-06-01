@@ -167,7 +167,15 @@ public class View {
             controller.runAlgorithm();
             List<Person> finalTeam = controller.getFinalGroup();
             int finalTeamQualification = controller.getFinalQualification();
-            finalTeamAlert(finalTeamQualification, finalTeam.toString());
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Person person : finalTeam) {
+                stringBuilder.append(person).append("\n");
+            }
+
+            String finalTeamToString = stringBuilder.toString();
+
+            finalTeamAlert(finalTeamQualification, finalTeamToString);
 
         });
 
