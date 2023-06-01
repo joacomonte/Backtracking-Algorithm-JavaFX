@@ -2,6 +2,8 @@ package com.example.backtracking;
 
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public class Controller {
     private final Model model;
 
@@ -53,9 +55,28 @@ public class Controller {
         return peopleList.indexOf(person);
     }
 
+    //TODO we may change the return type of this method, and make it so it brings the string to put
+    //TODO into the alert message withing view.
     public void runAlgorithm() {
-        model.runAlgorithm();
+      model.runAlgorithm();
     }
+
+    public List<Person> getFinalGroup(){
+        return model.getFinalGroup();
+    }
+
+    public int getFinalQualification(){
+        return model.getHighestQualification();
+    }
+
+//    private int sumTotalQualification(List<Person> finalTeam) {
+//        int finalQualification = 0;
+//        for (Person person : finalTeam
+//             ) {
+//            finalQualification += person.getQualification();
+//        }
+//        return finalQualification;
+//    }
 
     public void updateTeamRequirements(int requiredProgrammersValue, int requiredArchitectsValue, int requiredProjectLeadersValue, int requiredTestersValue) {
         model.updateTeamRequirements(requiredProgrammersValue, requiredArchitectsValue, requiredProjectLeadersValue, requiredTestersValue);

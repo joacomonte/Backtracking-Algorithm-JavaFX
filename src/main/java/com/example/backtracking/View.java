@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.scene.layout.HBox;
 
+import java.util.List;
+
 public class View {
     private final Controller controller;
     private final VBox root;
@@ -162,6 +164,10 @@ public class View {
 
         button.setOnAction(e -> {
             controller.runAlgorithm();
+            List<Person> finalTeam = controller.getFinalGroup();
+            int finalTeamQualification = controller.getFinalQualification();
+            finalTeamAlert(finalTeamQualification, finalTeam.toString());
+
         });
 
         return button;
@@ -265,6 +271,14 @@ public class View {
         alert.setTitle("Error");
         alert.setHeaderText("Esa pareja ya existe");
         alert.setContentText("Las personas que estas queriendo ingresar ya corresponden a la lista de incompatibles");
+        alert.showAndWait();
+    }
+
+    private void finalTeamAlert(int finalTeamScore, String team) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Mejor grupo encontrado!");
+        alert.setHeaderText("El grupo encontrado tiene un score de: " + finalTeamScore + " y se compone por: ");
+        alert.setContentText(team);
         alert.showAndWait();
     }
 }

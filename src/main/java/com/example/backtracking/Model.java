@@ -7,7 +7,13 @@ import java.util.*;
 
 public class Model {
 
+
+
+
     private static int highestQualification;
+
+
+
     private static List<Person> bestGroup;
     private ObservableList<Person> people = FXCollections.observableArrayList();
     private ObservableList<Pairs> incompatiblePairs = FXCollections.observableArrayList();
@@ -29,9 +35,26 @@ public class Model {
         people.add(new Person("ferchu", 5, "Tester"));
         people.add(new Person("grunge", 1, "Project Leader"));
         people.add(new Person("teti", 2, "Programmer"));
+        people.add(new Person("jack1", 5, "Programmer"));
+//        people.add(new Person("jack1", 4, "Programmer"));
+//        people.add(new Person("joaco2", 1, "Architect"));
+//        people.add(new Person("ferchu3", 4, "Tester"));
+//        people.add(new Person("grunge4", 4, "Project Leader"));
+//        people.add(new Person("teti5", 3, "Programmer"));
+//        people.add(new Person("jack8", 3, "Programmer"));
+//        people.add(new Person("joaco8", 4, "Architect"));
+//        people.add(new Person("ferchu8", 5, "Tester"));
+//        people.add(new Person("grunge8", 1, "Project Leader"));
+//        people.add(new Person("teti9", 2, "Programmer"));
+//        people.add(new Person("jack19", 4, "Programmer"));
+//        people.add(new Person("joaco29", 1, "Architect"));
+//        people.add(new Person("ferchu39", 4, "Tester"));
+//        people.add(new Person("grunge40", 4, "Project Leader"));
+//        people.add(new Person("teti50", 3, "Programmer"));
 
 
 
+        //TODO try to separate the backtracking into a thread
         //TODO add view for final team, and maybe add a counter of how many teams were formed
 
 
@@ -148,5 +171,13 @@ public class Model {
     public void runAlgorithm() {
         backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
         System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
+    }
+
+    public static int getHighestQualification() {
+        return highestQualification;
+    }
+
+    public static List<Person> getFinalGroup() {
+        return bestGroup;
     }
 }
