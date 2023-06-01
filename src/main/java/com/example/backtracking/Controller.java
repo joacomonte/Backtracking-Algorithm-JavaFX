@@ -65,10 +65,6 @@ public class Controller {
         return model.getFinalGroup();
     }
 
-    public int getFinalQualification(){
-        return model.getHighestQualification();
-    }
-
 //    private int sumTotalQualification(List<Person> finalTeam) {
 //        int finalQualification = 0;
 //        for (Person person : finalTeam
@@ -80,5 +76,9 @@ public class Controller {
 
     public void updateTeamRequirements(int requiredProgrammersValue, int requiredArchitectsValue, int requiredProjectLeadersValue, int requiredTestersValue) {
         model.updateTeamRequirements(requiredProgrammersValue, requiredArchitectsValue, requiredProjectLeadersValue, requiredTestersValue);
+    }
+
+    public int getFinalQualification() {
+        return model.getHighestQualification();
     }
 }

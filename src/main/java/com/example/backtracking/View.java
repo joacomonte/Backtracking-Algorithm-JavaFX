@@ -163,6 +163,7 @@ public class View {
         Button button = new Button("Buscar mejor equipo");
 
         button.setOnAction(e -> {
+
             controller.runAlgorithm();
             List<Person> finalTeam = controller.getFinalGroup();
             int finalTeamQualification = controller.getFinalQualification();

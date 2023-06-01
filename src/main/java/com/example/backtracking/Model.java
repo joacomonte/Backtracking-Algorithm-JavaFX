@@ -8,10 +8,7 @@ import java.util.*;
 public class Model {
 
 
-
-
     private static int highestQualification;
-
 
 
     private static List<Person> bestGroup;
@@ -23,9 +20,7 @@ public class Model {
     private int requiredProjectLeaders;
     private int requiredTesters;
 
-    private int totalTeamSize = requiredProgrammers + requiredArchitects + requiredProjectLeaders + requiredTesters;
-
-
+    private int totalTeamSize = 0;
 
 
     public Model() {
@@ -53,7 +48,6 @@ public class Model {
 //        people.add(new Person("teti50", 3, "Programmer"));
 
 
-
         //TODO try to separate the backtracking into a thread
         //TODO add view for final team, and maybe add a counter of how many teams were formed
 
@@ -64,7 +58,7 @@ public class Model {
 
     private void backtrack(List<Person> people, List<Person> tempList, ObservableList<Pairs> incompatiblePairs, int index) {
 
-        if (tempList.size() == 4) {
+        if (tempList.size() == totalTeamSize) {
             if (isCompatibleGroup(tempList, incompatiblePairs)) {
                 setHighestQualification(tempList);
             }
@@ -105,7 +99,7 @@ public class Model {
                 return false;
             }
         }
-        if (!everyRolCover(tempList)){
+        if (!everyRolCover(tempList)) {
             return false;
         }
 
@@ -118,23 +112,23 @@ public class Model {
         int programmers = 0;
         int testers = 0;
 
-        for (Person person : tempList){
-            if (person.getRole().equals("Project Leader")){
-                projectLeaders ++;
+        for (Person person : tempList) {
+            if (person.getRole().equals("Project Leader")) {
+                projectLeaders++;
             }
-            if (person.getRole().equals("Architect")){
-                architects ++;
+            if (person.getRole().equals("Architect")) {
+                architects++;
             }
-            if (person.getRole().equals("Programmer")){
-                programmers ++;
+            if (person.getRole().equals("Programmer")) {
+                programmers++;
             }
-            if (person.getRole().equals("Tester")){
-                testers ++;
+            if (person.getRole().equals("Tester")) {
+                testers++;
             }
         }
 
-        if (projectLeaders!=requiredProjectLeaders || architects!=requiredArchitects || programmers!=requiredProgrammers || testers!=requiredTesters){
-            System.out.println("No es compatible gato");
+        if (projectLeaders != requiredProjectLeaders || architects != requiredArchitects || programmers != requiredProgrammers || testers != requiredTesters) {
+            System.out.println("El grupo no cumple con los minimos requeridos");
             return false;
         }
 
@@ -143,7 +137,7 @@ public class Model {
 
     public void addPerson(Person person) {
         people.add(person);
-        System.out.println("Se agregó con éxito "+person);
+        System.out.println("Se agregó con éxito " + person);
     }
 
     void addPairSet(Pairs pairSelected) {
@@ -166,6 +160,7 @@ public class Model {
         this.requiredArchitects = requiredArchitectsValue;
         this.requiredProjectLeaders = requiredProjectLeadersValue;
         this.requiredTesters = requiredTestersValue;
+        this.totalTeamSize = requiredProgrammers + requiredArchitects + requiredProjectLeaders + requiredTesters;
     }
 
     public void runAlgorithm() {
@@ -180,4 +175,5 @@ public class Model {
     public static List<Person> getFinalGroup() {
         return bestGroup;
     }
+
 }

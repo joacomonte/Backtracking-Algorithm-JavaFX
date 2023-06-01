@@ -26,7 +26,8 @@ public class Person {
 
     @Override
     public String toString() {
-        return name + " (Qualification: " + qualification + ", Role: " + role + ")";
+        return name + " el " + role +" puntaje: " + qualification + "\n";
     }
+
 
 }
