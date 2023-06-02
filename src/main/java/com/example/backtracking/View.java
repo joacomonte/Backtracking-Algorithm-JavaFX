@@ -163,6 +163,7 @@ public class View {
         Button button = new Button("Buscar mejor equipo");
 
         button.setOnAction(e -> {
+            updateSpinners();
 
             controller.runAlgorithm();
             List<Person> finalTeam = controller.getFinalGroup();
@@ -223,9 +224,9 @@ public class View {
     }
 
     private Spinner<Integer> createNumberSpinner() {
-        int minValue = 0;
+        int minValue = 1;
         int maxValue = 100;
-        int initialValue = 0;
+        int initialValue = 1;
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(minValue, maxValue, initialValue);
 
