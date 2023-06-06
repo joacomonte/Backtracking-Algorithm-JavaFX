@@ -22,16 +22,20 @@ public class Model {
 
     private int totalTeamSize = 0;
 
+    //TODO delete this when done
+    private int groupsFound = 0;
+
 
     public Model() {
 
         bestGroup = new ArrayList();
-        people.add(new Person("jack", 3, "Programmer"));
-        people.add(new Person("joaco", 4, "Architect"));
-        people.add(new Person("ferchu", 5, "Tester"));
+        //TODO DELETE THIS PERSONS ADD
+        people.add(new Person("jack", 5, "Programmer"));
+        people.add(new Person("joaco", 1, "Architect"));
+        people.add(new Person("ferchu", 1, "Tester"));
         people.add(new Person("grunge", 1, "Project Leader"));
-        people.add(new Person("teti", 2, "Programmer"));
-        people.add(new Person("jack1", 5, "Programmer"));
+        people.add(new Person("teti", 5, "Programmer"));
+        people.add(new Person("jack1", 3, "Programmer"));
 //        people.add(new Person("jack1", 4, "Programmer"));
 //        people.add(new Person("joaco2", 1, "Architect"));
 //        people.add(new Person("ferchu3", 4, "Tester"));
@@ -70,6 +74,7 @@ public class Model {
 
                 tempList.add(people.get(i));
 
+
                 backtrack(people, tempList, incompatiblePairs, i + 1);
 
                 tempList.remove(tempList.size() - 1);
@@ -77,7 +82,7 @@ public class Model {
         }
     }
 
-    private int calculateQualification(List<Person> tempList) {
+    int calculateQualification(List<Person> tempList) {
         int sum = 0;
         for (Person person : tempList) {
             sum += person.getQualification();
@@ -86,6 +91,8 @@ public class Model {
     }
 
     private void setHighestQualification(List<Person> tempList) {
+        //groupsFound is a tracker for factible groups
+        groupsFound ++;
         int qualy = calculateQualification(tempList);
         if (qualy > highestQualification) {
             highestQualification = qualy;
@@ -93,7 +100,7 @@ public class Model {
         }
     }
 
-    //TODO fix this motherfucker
+
     private boolean isCompatibleGroup(List<Person> tempList, List<Pairs> incompatiblePairs) {
         for (Pairs pairs : incompatiblePairs) {
             if (tempList.containsAll(pairs.getPairSet())) {
@@ -136,9 +143,9 @@ public class Model {
         return true;
     }
 
+    //TODO test addPerson
     public void addPerson(Person person) {
         people.add(person);
-        System.out.println("Se agregó con éxito " + person);
     }
 
     void addPairSet(Pairs pairSelected) {
@@ -166,19 +173,27 @@ public class Model {
 
     public void runAlgorithm() {
         backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
+        //TODO Delete prints before turning over the essay
         System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
+        System.out.println(groupsFound);
     }
 
-    public static int getHighestQualification() {
+    public int getHighestQualification() {
         return highestQualification;
     }
 
-    public static List<Person> getFinalGroup() {
+    public List<Person> getFinalGroup() {
         return bestGroup;
     }
 
     public void resetBestGroup() {
        bestGroup.clear();
        highestQualification = 0;
+            //TODO DELETE THIS WHEN DONE
+            groupsFound =0;
+    }
+
+    public int getGroupsFound() {
+        return this.groupsFound;
     }
 }

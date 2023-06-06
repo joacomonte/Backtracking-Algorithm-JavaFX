@@ -10,7 +10,6 @@ public class Controller {
 
     public Controller(Model model) {
         this.model = model;
-
     }
 
     public void addPerson(String name, Integer qualy, String role) {
@@ -26,9 +25,6 @@ public class Controller {
         return model.getIncompatiblePairs();
     }
 
-//    public ObservableList<Person> getNotFriendsListFiltered() {
-//        return model.getPeopleList().filtered(person -> !model.getIncompatiblePairs().contains(person));
-//    }
 
     public boolean addIncompatiblePair(Person selectedPerson1, Person selectedPerson2) {
         Pairs newPair = Pairs.createPair(selectedPerson1, selectedPerson2);
@@ -48,8 +44,6 @@ public class Controller {
         return true;
     }
 
-
-
     private int getIndexOfPerson(Person person) {
         ObservableList<Person> peopleList = model.getPeopleList();
         return peopleList.indexOf(person);
@@ -65,15 +59,6 @@ public class Controller {
         return model.getFinalGroup();
     }
 
-//    private int sumTotalQualification(List<Person> finalTeam) {
-//        int finalQualification = 0;
-//        for (Person person : finalTeam
-//             ) {
-//            finalQualification += person.getQualification();
-//        }
-//        return finalQualification;
-//    }
-
     public void updateTeamRequirements(int requiredProgrammersValue, int requiredArchitectsValue, int requiredProjectLeadersValue, int requiredTestersValue) {
         model.updateTeamRequirements(requiredProgrammersValue, requiredArchitectsValue, requiredProjectLeadersValue, requiredTestersValue);
     }
@@ -84,5 +69,9 @@ public class Controller {
 
     public void resetBestGroup() {
         model.resetBestGroup();
+    }
+
+    public int groupsFound() {
+        return model.getGroupsFound();
     }
 }

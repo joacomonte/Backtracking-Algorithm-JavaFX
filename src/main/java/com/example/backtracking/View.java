@@ -35,6 +35,7 @@ public class View {
     private Spinner<Integer> requiredTesters;
 
     public View(Controller controller) {
+
         this.controller = controller;
 
         nameField = createNameField();
@@ -82,7 +83,7 @@ public class View {
     }
 
     private Button createAddButton() {
-        Button addButton = new Button("Agregar");
+        Button addButton = new Button("Agregar Persona");
         addButton.setOnAction(e -> {
             String name = nameField.getText();
             Integer number = numberChoiceBox.getValue();
@@ -128,7 +129,7 @@ public class View {
     }
 
     private Button addIncompatiblePairButton(ChoiceBox<Person> choiceBox1, ChoiceBox<Person> choiceBox2) {
-        Button button = new Button("Agregar");
+        Button button = new Button("Agregar par de personas incompatibles");
 
         button.setOnAction(e -> {
             Person selectedPerson1 = choiceBox1.getSelectionModel().getSelectedItem();
@@ -216,8 +217,8 @@ public class View {
         VBox.setMargin(roleLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(peopleListLabel, new Insets(10, 0, 0, 0));
         VBox.setMargin(notFriendsListLabel, new Insets(10, 0, 0, 0));
-        VBox.setMargin(incompatiblePerson1, new Insets(10, 0, 0, 0));
-        VBox.setMargin(incompatiblePerson2, new Insets(10, 0, 0, 0));
+        VBox.setMargin(incompatiblePerson1, new Insets(10, 10, 10, 10));
+        VBox.setMargin(incompatiblePerson2, new Insets(10, 10, 10, 10));
 
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
@@ -293,9 +294,10 @@ public class View {
     }
 
     private void finalTeamAlert(int finalTeamScore, String team) {
+        int groupsFound = controller.groupsFound();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Mejor grupo encontrado!");
-        alert.setHeaderText("El grupo encontrado tiene un score de: " + finalTeamScore + " y se compone por: ");
+        alert.setHeaderText("Se han encontrado: " + groupsFound + ". El mejor grupo tiene: " + finalTeamScore + " puntos.");
         alert.setContentText(team);
         alert.showAndWait();
         controller.resetBestGroup();
@@ -303,7 +305,7 @@ public class View {
 
     private void noTeamFoundAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Grupo no encontrado");
+        alert.setTitle("No se enontro un grupo factible.");
         alert.setHeaderText("No se pudo encontrar un grupo con los requerimientos indicados.");
         alert.showAndWait();
 
