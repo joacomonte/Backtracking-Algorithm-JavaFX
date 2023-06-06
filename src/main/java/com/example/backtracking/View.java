@@ -169,23 +169,27 @@ public class View {
             int finalTeamQualification = controller.getFinalQualification();
 
             StringBuilder stringBuilder = new StringBuilder();
-            if(finalTeam!=null) {
+
+            if (finalTeam.size() == 0 || finalTeam == null){
+                noTeamFoundAlert();
+            }
+
+            else if(finalTeam!=null) {
                 for (Person person : finalTeam) {
                     stringBuilder.append(person).append("\n");
                 }
                 String finalTeamToString = stringBuilder.toString();
 
                 finalTeamAlert(finalTeamQualification, finalTeamToString);
-            }else {
-                System.out.println("no se encontro grupo");
+
             }
-
-
 
         });
 
         return button;
     }
+
+
 
     //create the select boxes, labels and text areas. sets margins
     private VBox createRoot() {
@@ -294,5 +298,14 @@ public class View {
         alert.setHeaderText("El grupo encontrado tiene un score de: " + finalTeamScore + " y se compone por: ");
         alert.setContentText(team);
         alert.showAndWait();
+        controller.resetBestGroup();
+    }
+
+    private void noTeamFoundAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Grupo no encontrado");
+        alert.setHeaderText("No se pudo encontrar un grupo con los requerimientos indicados.");
+        alert.showAndWait();
+
     }
 }

@@ -25,6 +25,7 @@ public class Model {
 
     public Model() {
 
+        bestGroup = new ArrayList();
         people.add(new Person("jack", 3, "Programmer"));
         people.add(new Person("joaco", 4, "Architect"));
         people.add(new Person("ferchu", 5, "Tester"));
@@ -176,4 +177,8 @@ public class Model {
         return bestGroup;
     }
 
+    public void resetBestGroup() {
+       bestGroup.clear();
+       highestQualification = 0;
+    }
 }

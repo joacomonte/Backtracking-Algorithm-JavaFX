@@ -81,4 +81,8 @@ public class Controller {
     public int getFinalQualification() {
         return model.getHighestQualification();
     }
+
+    public void resetBestGroup() {
+        model.resetBestGroup();
+    }
 }
