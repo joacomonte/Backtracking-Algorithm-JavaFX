@@ -169,13 +169,18 @@ public class View {
             int finalTeamQualification = controller.getFinalQualification();
 
             StringBuilder stringBuilder = new StringBuilder();
-            for (Person person : finalTeam) {
-                stringBuilder.append(person).append("\n");
+            if(finalTeam!=null) {
+                for (Person person : finalTeam) {
+                    stringBuilder.append(person).append("\n");
+                }
+                String finalTeamToString = stringBuilder.toString();
+
+                finalTeamAlert(finalTeamQualification, finalTeamToString);
+            }else {
+                System.out.println("no se encontro grupo");
             }
 
-            String finalTeamToString = stringBuilder.toString();
 
-            finalTeamAlert(finalTeamQualification, finalTeamToString);
 
         });
 
