@@ -22,47 +22,18 @@ public class Model {
 
     private int totalTeamSize = 0;
 
-    //TODO delete this when done
+    //counter for actual usable groups
     private int groupsFound = 0;
 
 
     public Model() {
 
         bestGroup = new ArrayList();
-        //TODO DELETE THIS PERSONS ADD
-        people.add(new Person("jack", 5, "Programmer"));
-        people.add(new Person("joaco", 1, "Architect"));
-        people.add(new Person("ferchu", 1, "Tester"));
-        people.add(new Person("grunge", 1, "Project Leader"));
-        people.add(new Person("teti", 5, "Programmer"));
-        people.add(new Person("jack1", 3, "Programmer"));
-//        people.add(new Person("jack1", 4, "Programmer"));
-//        people.add(new Person("joaco2", 1, "Architect"));
-//        people.add(new Person("ferchu3", 4, "Tester"));
-//        people.add(new Person("grunge4", 4, "Project Leader"));
-//        people.add(new Person("teti5", 3, "Programmer"));
-//        people.add(new Person("jack8", 3, "Programmer"));
-//        people.add(new Person("joaco8", 4, "Architect"));
-//        people.add(new Person("ferchu8", 5, "Tester"));
-//        people.add(new Person("grunge8", 1, "Project Leader"));
-//        people.add(new Person("teti9", 2, "Programmer"));
-//        people.add(new Person("jack19", 4, "Programmer"));
-//        people.add(new Person("joaco29", 1, "Architect"));
-//        people.add(new Person("ferchu39", 4, "Tester"));
-//        people.add(new Person("grunge40", 4, "Project Leader"));
-//        people.add(new Person("teti50", 3, "Programmer"));
-
-
-        //TODO try to separate the backtracking into a thread
-        //TODO add view for final team, and maybe add a counter of how many teams were formed
-
-
-        //backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
 
     }
 
+    //main reason of the essay, backtracking algorithm
     private void backtrack(List<Person> people, List<Person> tempList, ObservableList<Pairs> incompatiblePairs, int index) {
-
         if (tempList.size() == totalTeamSize) {
             if (isCompatibleGroup(tempList, incompatiblePairs)) {
                 setHighestQualification(tempList);
@@ -71,9 +42,7 @@ public class Model {
             for (int i = index; i < people.size(); i++) {
                 if (tempList.contains(people.get(i)))
                     continue;
-
                 tempList.add(people.get(i));
-
 
                 backtrack(people, tempList, incompatiblePairs, i + 1);
 
@@ -143,9 +112,14 @@ public class Model {
         return true;
     }
 
-    //TODO test addPerson
-    public void addPerson(Person person) {
-        people.add(person);
+
+    public void addPerson(Person personToAdd) {
+        for (Person person : people
+             ) {
+            if (personToAdd.getName().equals(person.getName()))
+                return;
+        }
+        people.add(personToAdd);
     }
 
     void addPairSet(Pairs pairSelected) {
@@ -153,7 +127,7 @@ public class Model {
     }
 
 
-    // is a javaFX method
+
     public ObservableList<Person> getPeopleList() {
         return people;
     }
@@ -173,9 +147,6 @@ public class Model {
 
     public void runAlgorithm() {
         backtrack(people, new ArrayList<>(), incompatiblePairs, 0);
-        //TODO Delete prints before turning over the essay
-        System.out.println("The best score: " + highestQualification + " has it this group: " + bestGroup);
-        System.out.println(groupsFound);
     }
 
     public int getHighestQualification() {
@@ -189,8 +160,8 @@ public class Model {
     public void resetBestGroup() {
        bestGroup.clear();
        highestQualification = 0;
-            //TODO DELETE THIS WHEN DONE
-            groupsFound =0;
+       //reset groups counter
+       groupsFound =0;
     }
 
     public int getGroupsFound() {

@@ -56,7 +56,7 @@ public class View {
 
     private TextField createNameField() {
         TextField nameField = new TextField();
-        nameField.setPromptText("Enter name");
+        nameField.setPromptText("Ingresar el nombre de la persona:");
         return nameField;
     }
 
@@ -68,6 +68,7 @@ public class View {
         return numberChoiceBox;
     }
 
+    //selector for the person's rol
     private ChoiceBox<String> createRoleChoiceBox() {
         ObservableList<String> roleOptions = FXCollections.observableArrayList(
                 "Select role", // Default option
@@ -82,6 +83,7 @@ public class View {
         return roleChoiceBox;
     }
 
+    //add person button
     private Button createAddButton() {
         Button addButton = new Button("Agregar Persona");
         addButton.setOnAction(e -> {
@@ -106,14 +108,15 @@ public class View {
         return listView;
     }
 
+
     private ListView<Pairs> createNotFriendsListView() {
         ListView<Pairs> listView = new ListView<>();
-
         listView.setItems(controller.getIncompatiblePairs());
         listView.setPrefHeight(400);
         return listView;
     }
 
+    //first selector to add incopatible pair
     private ChoiceBox<Person> createNotFriendsChoiceBox1() {
         ChoiceBox<Person> choiceBox = new ChoiceBox<>();
         ObservableList<Person> peopleList = controller.getPeopleList();
@@ -121,6 +124,7 @@ public class View {
         return choiceBox;
     }
 
+    //second selector to add incopatible pair
     private ChoiceBox<Person> createNotFriendsChoiceBox2() {
         ChoiceBox<Person> choiceBox = new ChoiceBox<>();
         ObservableList<Person> peopleList = controller.getPeopleList();
@@ -145,8 +149,6 @@ public class View {
         return button;
     }
 
-
-
     private Label createSuccessLabel() {
         Label label = new Label("FELICITACIONES!! Se agregó con éxito!");
         label.setVisible(false);
@@ -159,23 +161,19 @@ public class View {
         timeline.play();
     }
 
-
     private Button  runAlgorithmButton() {
-        Button button = new Button("Buscar mejor equipo");
 
+        Button button = new Button("Buscar mejor equipo!");
         button.setOnAction(e -> {
-
             controller.runAlgorithm();
             List<Person> finalTeam = controller.getFinalGroup();
             int finalTeamQualification = controller.getFinalQualification();
-
             StringBuilder stringBuilder = new StringBuilder();
 
             if (finalTeam.size() == 0 || finalTeam == null){
                 noTeamFoundAlert();
             }
-
-            else if(finalTeam!=null) {
+            else {
                 for (Person person : finalTeam) {
                     stringBuilder.append(person).append("\n");
                 }
@@ -184,12 +182,9 @@ public class View {
                 finalTeamAlert(finalTeamQualification, finalTeamToString);
 
             }
-
         });
-
         return button;
     }
-
 
 
     //create the select boxes, labels and text areas. sets margins
@@ -232,6 +227,7 @@ public class View {
         return root;
     }
 
+    //selectors for rol requirements
     private Spinner<Integer> createNumberSpinner() {
         int minValue = 0;
         int maxValue = 100;
@@ -276,6 +272,9 @@ public class View {
         numberChoiceBox.getSelectionModel().clearSelection();
         roleChoiceBox.getSelectionModel().clearSelection();
     }
+
+
+    //-------------Alerts----------------
 
     private void fieldsAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
